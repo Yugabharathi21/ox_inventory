@@ -1,7 +1,76 @@
-$mainColor: #22232c;
-$textColor: #c1c2c5;
-$mainFont: Roboto;
+// Mixins
+@mixin grid-overlay {
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
 
+@mixin glowing-border {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #00a8ff, #00ffff);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  &:hover::before {
+    opacity: 0.5;
+  }
+}
+
+@mixin clipped-corners {
+  clip-path: polygon(
+    15% 0%,
+    100% 0%,
+    100% 85%,
+    85% 100%,
+    0% 100%,
+    0% 15%
+  );
+}
+
+// Animations
+@keyframes grid-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 20px 20px;
+  }
+}
+
+// Variables
+$mainColor: #0a0a0a;
+$textColor: #ffffff;
+$mainFont: 'Orbitron', sans-serif;
+$gra_color: #00b6d6;
+$prodigy_primary: #00ffff;
+$prodigy_secondary: #00a8ff;
+$prodigy_accent: #00ffff;
+$prodigy_highlight: #00ffff;
+$prodigy_dark: #0a0a0a;
+$prodigy_light: #ffffff;
+$prodigy2_primary: #00ffff;
+$prodigy2_secondary: #00a8ff;
+$prodigy2_accent: #00ffff;
+$prodigy2_highlight: #00ffff;
+$prodigy2_dark: #0a0a0a;
+$prodigy2_light: #ffffff;
+$prodigy2_bg: #0a0a0a;
+$prodigy2_slot_bg: rgba(10, 10, 10, 0.9);
+$futuristic_primary: #00f2fe;
+$futuristic_secondary: #4facfe;
+$futuristic_accent: #00f2fe;
+$futuristic_dark: #0a192f;
+$futuristic_light: #e6f1ff;
+$futuristic_gray: #8892b0;
 $secondaryColor: rgba(12, 12, 12, 0.4);
 $secondaryColorHighlight: #33343F;
 $secondaryColorLight: rgba(0, 0, 0, 0.5);
@@ -53,7 +122,8 @@ input[type='number']::-webkit-outer-spin-button {
 .app-wrapper {
   height: 100%;
   width: 100%;
-  color: white;
+  color: $prodigy2_light;
+  background: none;
 }
 
 .context-menu-list {
@@ -137,35 +207,85 @@ button:active {
   }
 
   .inventory-control-input {
-    transition: 200ms;
-    padding: 16px 8px;
-    border-radius: 2.5%;
+    transition: all 0.3s ease;
+    padding: 8px 6px;
+    border-radius: 0;
     font-family: $mainFont;
-    font-size: 16px;
+    font-size: 13px;
     text-align: center;
     outline: none;
-    border: none;
-    color: #fff;
-    background-color: $secondaryColor;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: $prodigy2_light;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 255, 255, 0.05) 0%,
+      rgba(0, 255, 255, 0.1) 50%,
+      rgba(0, 255, 255, 0.05) 100%
+    );
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1),
+                inset 0 0 15px rgba(0, 255, 255, 0.05);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 30%;
+    margin: 0 auto;
+    @include glowing-border;
+    
     &:focus-within {
-      background-color: $secondaryColorDark;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 255, 255, 0.1) 0%,
+        rgba(0, 255, 255, 0.2) 50%,
+        rgba(0, 255, 255, 0.1) 100%
+      );
+      border-color: rgba(0, 255, 255, 0.8);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2),
+                  inset 0 0 20px rgba(0, 255, 255, 0.1);
+      transform: scale(1.02);
     }
   }
 
   .inventory-control-button {
-    font-size: 14px;
-    color: #fff;
-    background-color: $secondaryColor;
-    transition: 200ms;
-    padding: 12px 8px;
-    border-radius: 2.5%;
-    border: none;
+    font-size: 13px;
+    color: $prodigy2_light;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 255, 255, 0.05) 0%,
+      rgba(0, 255, 255, 0.1) 50%,
+      rgba(0, 255, 255, 0.05) 100%
+    );
+    transition: all 0.3s ease;
+    padding: 8px 6px;
+    border-radius: 0;
+    border: 1px solid rgba(0, 255, 255, 0.3);
     text-transform: uppercase;
     font-family: $mainFont;
-    width: 100%;
+    width: 30%;
+    margin: 0 auto;
     font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1),
+                inset 0 0 15px rgba(0, 255, 255, 0.05);
+    @include glowing-border;
+    clip-path: polygon(
+      15% 0%,
+      85% 0%,
+      100% 50%,
+      85% 100%,
+      15% 100%,
+      0% 50%
+    );
+    
     &:hover {
-      background-color: $secondaryColorDark;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 255, 255, 0.1) 0%,
+        rgba(0, 255, 255, 0.2) 50%,
+        rgba(0, 255, 255, 0.1) 100%
+      );
+      border-color: rgba(0, 255, 255, 0.8);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2),
+                  inset 0 0 20px rgba(0, 255, 255, 0.1);
+      transform: scale(1.05);
     }
   }
 }
@@ -228,20 +348,27 @@ button:active {
   position: absolute !important;
   bottom: 25px;
   right: 25px;
-  transition: 200ms !important;
+  transition: all 0.3s ease !important;
   border: none;
-  color: white;
+  color: $prodigy2_light;
   width: 52px;
-  height: 52px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  fill: white;
-  border-radius: 5% !important;
-  background-color: $secondaryColor !important;
+  fill: $prodigy2_light;
+  border-radius: 0 !important;
+  background-color: $prodigy2_slot_bg !important;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  @include grid-overlay;
+  @include glowing-border;
+  
   &:hover {
-    background-color: $secondaryColorDark !important;
-    cursor: pointer;
+    background-color: rgba(0, 255, 255, 0.1) !important;
+    border-color: rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    transform: scale(1.05);
   }
 }
 
@@ -266,8 +393,49 @@ button:active {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 4px;
+  
+  .header-item {
+    padding: 1px 4px;
+    background: linear-gradient(
+      165deg,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 255, 255, 0.03) 40%,
+      rgba(0, 255, 255, 0.02) 60%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+    border: 1px solid rgba(0, 255, 255, 0.12);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.07),
+                inset 0 0 12px rgba(0, 255, 255, 0.02);
+    @include clipped-corners;
+    backdrop-filter: blur(4px);
+    min-width: 50px;
+    text-align: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: linear-gradient(
+        165deg,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 255, 255, 0.05) 40%,
+        rgba(0, 255, 255, 0.04) 60%,
+        rgba(0, 0, 0, 0.95) 100%
+      );
+      border-color: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.1),
+                  inset 0 0 15px rgba(0, 255, 255, 0.03);
+    }
+  }
+
   p {
-    font-size: 16px;
+    font-size: 10px;
+    font-weight: 500;
+    color: $prodigy2_highlight;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    line-height: 14px;
   }
 }
 
@@ -278,32 +446,145 @@ button:active {
   grid-auto-rows: $gridSize + 0.22vh;
   gap: $gridGap;
   overflow-y: scroll;
+  padding: 15px;
+  background-color: transparent;
+  border-radius: 6px;
+  box-shadow: none;
+  border: none;
 }
 
 // inventory slots
 .inventory-slot {
-  background-color: $secondaryColor;
+  background-color: $prodigy2_slot_bg;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2.5%;
+  border-radius: 0;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
   background-size: 7vh;
-  color: $textColor;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: inset;
-  border-width: 1px;
-}
+  color: $prodigy2_light;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  @include glowing-border;
+  @include clipped-corners;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.8);
+  }
 
-.inventory-slot-label-box {
-  background-color: $mainColor;
-  color: $textColor;
-  text-align: center;
-  border-bottom-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
-  border-top-color: rgba(0, 0, 0, 0.2);
-  border-top-style: inset;
-  border-top-width: 1px;
+  .inventory-slot-label-box {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 255, 0.1) 100%);
+    color: $prodigy2_light;
+    text-align: left;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 10px;
+    padding: 1px 0;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    z-index: 1;
+  }
+
+  .durability-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    height: 2px;
+    overflow: hidden;
+    clip-path: polygon(
+      15% 0%,
+      100% 0%,
+      100% 100%,
+      85% 100%,
+      0% 100%,
+      0% 15%
+    );
+  }
+
+  .item-count {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: rgba(0, 255, 255, 0.2);
+    color: $prodigy2_light;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 0;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+    letter-spacing: 1px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+    min-width: 20px;
+    text-align: center;
+    clip-path: polygon(
+      10% 0%,
+      90% 0%,
+      100% 50%,
+      90% 100%,
+      10% 100%,
+      0% 50%
+    );
+  }
+
+  .health-indicator {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 0;
+    top: 0;
+    right: 0;
+    transform: rotate(45deg);
+    transition: border-color 0.3s ease;
+    z-index: 1;
+    border-color: transparent rgba(0, 255, 255, 0.3) transparent transparent;
+
+    &.low {
+      border-color: transparent rgb(231, 76, 60) transparent transparent;
+    }
+
+    &.medium {
+      border-color: transparent rgb(211, 84, 0) transparent transparent;
+    }
+
+    &.high {
+      border-color: transparent rgb(39, 174, 96) transparent transparent;
+    }
+  }
+
+  .corner-triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 0;
+    border-color: transparent rgba(0, 255, 255, 0.3) transparent transparent;
+    
+    &.top-left {
+      top: 0;
+      left: 0;
+      transform: rotate(45deg);
+    }
+    
+    &.bottom-right {
+      bottom: 0;
+      right: 0;
+      transform: rotate(-135deg);
+    }
+  }
 }
 
 .inventory-slot-label-text {
@@ -311,21 +592,31 @@ button:active {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 2px 3px;
+  padding: 1px 2px;
   font-weight: 400;
   font-family: $mainFont;
-  font-size: 12px;
+  font-size: 10px;
+  letter-spacing: 0.5px;
 }
 
 .inventory-slot-number {
-  background-color: white;
-  color: black;
-  height: 12px;
-  border-top-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
-  padding: 3px;
-  font-size: 12px;
+  color: rgba(223, 230, 233, 0.15);
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  font-size: 76px;
   font-family: $mainFont;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: -2px;
 }
 
 .item-slot-wrapper {
@@ -387,31 +678,45 @@ button:active {
 .tooltip-wrapper {
   pointer-events: none;
   display: flex;
-  background-color: $mainColor;
+  background-color: rgba(10, 10, 10, 0.95);
   width: 200px;
-  padding: 8px;
+  padding: 12px;
   flex-direction: column;
   min-width: 200px;
-  color: $textColor;
+  color: $prodigy2_light;
   font-family: $mainFont;
-  border-radius: 4px;
-  border-color: rgba(0, 0, 0, 0.2);
-  border-style: inset;
-  border-width: 1px;
+  border-radius: 0;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  @include grid-overlay;
+  @include glowing-border;
+  
   p {
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 300;
+    color: $prodigy2_light;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
   }
 }
 
 .tooltip-header-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   p {
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 500;
+    color: $prodigy2_highlight;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+    }
   }
 }
 
@@ -452,12 +757,21 @@ button:active {
   width: 100%;
   position: absolute;
   bottom: 2vh;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 6px;
+  border: none;
 }
 
 .hotbar-item-slot {
   @extend .inventory-slot;
   width: $gridSize;
   height: $gridSize;
+  border: 1px solid rgba(0, 255, 157, 0.4);
+  
+  &:hover {
+    border-color: rgba(0, 255, 157, 0.8);
+  }
 }
 
 .hotbar-slot-header-wrapper {
@@ -503,18 +817,20 @@ button:active {
   width: $gridSize;
 }
 
-.durability-bar {
-  background: rgba(0, 0, 0, 0.5);
-  height: 3px;
-  overflow: hidden;
-}
-
 .weight-bar {
   background: rgba(0, 0, 0, 0.4);
   border: 1px inset rgba(0, 0, 0, 0.1);
   height: 0.8vh;
   border-radius: 5%;
   overflow: hidden;
+  clip-path: polygon(
+    15% 0%,
+    100% 0%,
+    100% 85%,
+    85% 100%,
+    0% 100%,
+    0% 15%
+  );
 }
 
 .transition-fade-enter {
@@ -551,4 +867,9 @@ button:active {
 .transition-slide-up-exit-active {
   transform: translateY(200px);
   transition: all 200ms;
+}
+
+// Remove the grid animation from inventory slots
+.inventory-control-input, .inventory-control-button, .tooltip-wrapper, .useful-controls-button {
+  animation: grid-animation 20s linear infinite;
 }
