@@ -536,6 +536,31 @@ button:active {
     border-color: rgba(0, 255, 255, 0.8);
   }
 
+  .corner-triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 0;
+    border-color: transparent rgba(0, 255, 255, 0.3) transparent transparent;
+    z-index: 2;
+    
+    &.top-left {
+      top: -1px;
+      left: -1px;
+    }
+    
+    &.bottom-right {
+      bottom: -1px;
+      right: -1px;
+    }
+  }
+
+  .item-slot-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
   .inventory-slot-label-box {
     position: absolute;
     bottom: 2px;
@@ -620,27 +645,6 @@ button:active {
 
     &.high {
       border-color: transparent rgb(39, 174, 96) transparent transparent;
-    }
-  }
-
-  .corner-triangle {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 10px 10px 0;
-    border-color: transparent rgba(0, 255, 255, 0.3) transparent transparent;
-    
-    &.top-left {
-      top: 0;
-      left: 0;
-      transform: rotate(45deg);
-    }
-    
-    &.bottom-right {
-      bottom: 0;
-      right: 0;
-      transform: rotate(-135deg);
     }
   }
 }
@@ -932,6 +936,7 @@ button:active {
   height: 0.8vh;
   border-radius: 5%;
   overflow: hidden;
+  position: relative;
   clip-path: polygon(
     8px 0,
     100% 0,
@@ -943,6 +948,52 @@ button:active {
   box-shadow: 
     inset 0 0 3px rgba(0, 255, 255, 0.1),
     0 0 2px rgba(0, 255, 255, 0.05);
+
+  .corner-triangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 6px 6px 0;
+    border-color: transparent rgba(0, 255, 255, 0.3) transparent transparent;
+    z-index: 2;
+    
+    &.top-left {
+      top: -1px;
+      left: -1px;
+      transform: rotate(45deg);
+    }
+    
+    &.bottom-right {
+      bottom: -1px;
+      right: -1px;
+      transform: rotate(-135deg);
+    }
+  }
+
+  .health-indicator {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 6px 6px 0;
+    top: -1px;
+    right: -1px;
+    transform: rotate(45deg);
+    z-index: 2;
+
+    &.low {
+      border-color: transparent rgb(231, 76, 60) transparent transparent;
+    }
+
+    &.medium {
+      border-color: transparent rgb(211, 84, 0) transparent transparent;
+    }
+
+    &.high {
+      border-color: transparent rgb(39, 174, 96) transparent transparent;
+    }
+  }
 }
 
 .transition-fade-enter {

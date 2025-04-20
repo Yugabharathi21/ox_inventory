@@ -33,6 +33,12 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
     [durability, percent]
   );
 
+  const healthClass = useMemo(() => {
+    if (percent >= 75) return 'high';
+    if (percent >= 40) return 'medium';
+    return 'low';
+  }, [percent]);
+
   return (
     <div className={durability ? 'durability-bar' : 'weight-bar'}>
       <div
@@ -44,7 +50,15 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
           transition: `background ${0.3}s ease, width ${0.3}s ease`,
         }}
       ></div>
+      {durability && (
+        <>
+          <div className={`health-indicator ${healthClass}`} />
+          <div className="corner-triangle top-left" />
+          <div className="corner-triangle bottom-right" />
+        </>
+      )}
     </div>
   );
 };
+
 export default WeightBar;

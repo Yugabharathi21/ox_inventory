@@ -135,22 +135,11 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
         border: isOver ? '1px dashed rgba(255,255,255,0.4)' : '',
       }}
     >
+      <div className="corner-triangle top-left" style={{ borderWidth: '0 10px 10px 0', transform: 'rotate(45deg)' }} />
+      <div className="corner-triangle bottom-right" style={{ borderWidth: '0 10px 10px 0', transform: 'rotate(-135deg)' }} />
+      
       {isSlotWithItem(item) && (
-        <div
-          className="item-slot-wrapper"
-          onMouseEnter={() => {
-            timerRef.current = window.setTimeout(() => {
-              dispatch(openTooltip({ item, inventoryType }));
-            }, 500) as unknown as number;
-          }}
-          onMouseLeave={() => {
-            dispatch(closeTooltip());
-            if (timerRef.current) {
-              clearTimeout(timerRef.current);
-              timerRef.current = null;
-            }
-          }}
-        >
+        <div className="item-slot-wrapper">
           <div
             className={
               inventoryType === 'player' && item.slot <= 5 ? 'item-hotslot-header-wrapper' : 'item-slot-header-wrapper'
