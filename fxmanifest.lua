@@ -25,7 +25,8 @@ ox_libs {
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
-    'init.lua'
+    'init.lua',
+    'server/clothing.lua'
 }
 
 client_script 'init.lua'
