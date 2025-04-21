@@ -2,6 +2,12 @@
 
 A modernized and enhanced version of ox_inventory with a futuristic UI design and additional features.
 
+> [!WARNING]
+> This is currently a Work in Progress (WIP) project. The features and UI are being actively developed and may change significantly.
+> Please wait for the final release of version 2.1.0.6 before using in production.
+> 
+> Current Status: In Development 🚧
+
 ![](https://img.shields.io/github/downloads/overextended/ox_inventory/total?logo=github)
 ![](https://img.shields.io/github/downloads/overextended/ox_inventory/latest/total?logo=github)
 ![](https://img.shields.io/github/contributors/overextended/ox_inventory?logo=github)
